@@ -1,7 +1,7 @@
 <template>
   <div class="visitStatusWrapper" :class="{'small-box': SmallBox}">
     <div class="VisitBoxContent" :style="defaultBoxColor" :class="{'active': active}">
-      <div class="text-center">
+      <div class="text-center" style="text-align: center;">
         <div class="VisitTitle" :style="{paddingTop: progress != null ? '20px' : '30px'}">
           <span v-html="name"></span>
         </div>
@@ -16,8 +16,9 @@
       <slot></slot>
       <div class="VisitProgress col-sm-12" v-if="progress != null">
         <div class="left">
+          <progress :max="100" :value="progress" style="width: 100%;"></progress>
           <b-progress :max="100" height="1.5rem">
-            <b-progress-bar :style="{backgroundColor: progressBarColor}" :value="progress | nullToZero" />
+            <b-progress-bar :style="{backgroundColor: progressBarColor}" :value="progress" />
           </b-progress>
         </div>
         <div class="right">{{ progress }}%</div>
@@ -33,9 +34,11 @@ export default {
   },
   props: {
     name: {
+      type: String,
       required: true
     },
     completedValue: {
+      type: String,
       required: false
     },
     totalValue: {
@@ -48,6 +51,7 @@ export default {
       required: false
     },
     boxColor: {
+      type: Object,
       default: false
     },
     progressBarColor: {
